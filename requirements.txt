@@ -1,0 +1,10 @@
+bs4
+psycopg2-binary==2.9.5
+pyrofork
+pyston-lite-autoload
+pytz
+git+https://github.com/agronholm/apscheduler@master
+requests
+sqlalchemy==1.4.45
+tgcrypto
+uvloop
