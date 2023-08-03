@@ -20,6 +20,7 @@ PARAMS: Dict[str, str] = {
 
 async def get_free_epic_games(client):
 	response = requests.get(EPIC_API, params=PARAMS)
+	game_url = None
 
 	# Find the free games in the response
 	for game in response.json()["data"]["Catalog"]["searchStore"]["elements"]:
@@ -62,6 +63,12 @@ async def get_free_epic_games(client):
 						page_slug = offer["pageSlug"]
 						game_url = f"https://www.epicgames.com/en-US/p/{page_slug}"
 						break
+				if not game_url:
+					for offer in game["catalogNs"]["mappings"]:
+						if offer["pageSlug"]:
+							page_slug = offer["pageSlug"]
+							game_url = f"https://www.epicgames.com/en-US/p/{page_slug}"
+							break
 			text = f"<b>🎮 {game_name}</b>"
 			text += f"\n💲 Price: <strike>{original_price}</strike> <b>$0.0</b>"
 			text += f"\n⌛️ Exp: {exp}"
